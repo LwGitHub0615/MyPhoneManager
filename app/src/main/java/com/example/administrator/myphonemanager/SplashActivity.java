@@ -12,7 +12,12 @@ import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.administrator.myphonemanager.Application.DataApplication;
 import com.example.administrator.myphonemanager.Utils.HttpUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -41,6 +46,7 @@ public class SplashActivity extends ActionBarActivity {
 
     // 考虑到使用问题 就把提成成员变量
     String path ="http://192.168.3.50/MyPhoneManager/";
+    private ProgressBar pb_splash_percent;
 
     //姑且越新越上(函数   定义成员变量越新越下
     @Override
@@ -51,8 +57,55 @@ public class SplashActivity extends ActionBarActivity {
         //获取当前app的版本
         currentversionName = getVersionName();
 
+        //给设置文字
+        TextView tv_splash_version = (TextView) findViewById(R.id.tv_splash_version);
+        tv_splash_version.setText("版本:"+currentversionName); // hah
+
+        //显示 ProcessBar
+        pb_splash_percent = (ProgressBar) findViewById(R.id.pb_splash_percent);
+
         //获取的当前app的服务端版本 信息
+
+        if(DataApplication.configSP.getBoolean("autoUpdate",true))
         getNewVersion();
+        else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //设置在没开启自动更新的情况下 等待3秒 给展示页面再转向HomeActivity
+                    TurntoHome();
+                }
+            }).start();
+        }
+
+    }
+
+    //Cancel取消以后
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //用户取消更新操作的时候
+        if(requestCode==RESULT_CANCELED){
+
+            //进入app主页面 HomeActivity
+            TurntoHome();
+
+        }
+
+    }
+
+    //终于要去主页面了 是不是有点小激动了呢 但是 还是有那么多问题在
+    private void TurntoHome() {
+
+        startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+        finish();
 
     }
 
@@ -134,6 +187,10 @@ public class SplashActivity extends ActionBarActivity {
                 fos.write(bytes);
                 fos.close();
 
+                //Day02优化 添加下载进度提示
+
+
+
                 //安装应用的操作函数
                 install(apkfile);
 
@@ -146,9 +203,25 @@ public class SplashActivity extends ActionBarActivity {
 
         }
 
+         //Day02 下载进度的显示
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+            //显示进度
+                pb_splash_percent.setMax((int) totalSize);
+
+             pb_splash_percent.setProgress((int) bytesWritten);
+
+        }
+
         @Override
         public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 
+            //失败的话 抬出一个提示框
+            Toast.makeText(SplashActivity.this,"下载失败",Toast.LENGTH_SHORT).show();
+
+            TurntoHome();
         }
     }
 
@@ -175,16 +248,20 @@ public class SplashActivity extends ActionBarActivity {
                         //为了此处方便使用 使成为final 匿名内部类调用参数
                         asyncHttpClient.get(path+serverVersionmes[2],new myResponseHandler());
 
+                        //Day02 进度条显示
+                        pb_splash_percent.setVisibility(View.VISIBLE);
+
                         //关键在与 怎么样 获取文件  及开启安装
 
                         //myResponseHandler 中 onSuccess情况下 去获取安装文件 及其安装
                     }
                 })
-                .setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                         //用户取消更新 的操作 进入App主页面操作
+                        TurntoHome();
                     }
                 })
                 .show();
@@ -245,6 +322,11 @@ public class SplashActivity extends ActionBarActivity {
                     con.connect();
                     int responseCode = con.getResponseCode();
 
+                    //正常的情况  但是？ 网络问题 服务器问题
+
+                    //所以 根据条件去设置mes.what .object  finally中 设置信息传递
+
+//               catch中 关于错误的捕获 各种异常在 what 中的 错误码设置  有便于获取错误信息 debug
                     if(responseCode==200) {
 
                         InputStream inputStream = con.getInputStream();
@@ -278,16 +360,38 @@ public class SplashActivity extends ActionBarActivity {
                             message.obj = mes;
                             //创建Handler传递消息
                             handler.sendMessage(message);
+                        }else {
+
+                            //然而并不显示  我也是，，
+                            Toast.makeText(SplashActivity.this,"更新操作失败,即将进入主页面，，，",Toast.LENGTH_LONG).show();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Thread.sleep(3000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    //设置在没开启自动更新的情况下 等待3秒 给展示页面再转向HomeActivity
+                                    TurntoHome();
+                                }
+                            }).start();
+
                         }
 
+                    }else {
+                        TurntoHome();
                     }
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
+                    TurntoHome();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    TurntoHome();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    TurntoHome();
                 }
 
             }
