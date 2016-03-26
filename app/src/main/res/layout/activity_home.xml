@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.example.administrator.myphonemanager.HomeActivity">
 
-</RelativeLayout>
+    <!--Home主页面的 第一部分的显示-->
+
+    <!-- 此处因功能列表和功能实现页面的title的相似 
+    可以说一致性 所以 可以在values的styles中声明 style调用 来实现，， -->
+    <TextView
+        style="@style/PageTitleStyle"
+        android:text="功能列表" />
+
+    <!-- 参见豆瓣的启动页面 android:text="欢迎语啊"-->
+
+    <!--com.example.mobile.View.marqueeTextView-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_home_mtext"
+        android:padding="2dp"
+
+        android:singleLine="true"
+
+        android:ellipsize="marquee"
+        />
+    <!--实现跑马灯效果  单行 -->
+
+    <!--第三部分-->
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gv_home_item"
+        android:numColumns="3"
+
+        android:gravity="center">
+
+    </GridView>
+
+</LinearLayout>

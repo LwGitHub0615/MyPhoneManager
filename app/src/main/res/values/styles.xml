@@ -5,4 +5,23 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+   <!-- <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="功能列表"
+        android:gravity="center"
+        android:textSize="33sp"
+        android:padding="10dp"
+        android:background="#12ff23"/>-->
+<!-- 设置通用subhead的样式 -->
+    <style name="PageTitleStyle">
+        <item name="android:gravity" >center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">33sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">#12ff23</item>
+    </style>
+
 </resources>

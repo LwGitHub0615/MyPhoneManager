@@ -9,6 +9,7 @@ import java.io.InputStream;
  */
 public class HttpUtils {
 
+    //HttpURLConnection连接中 通过InputStream 获取到字符串对象
    public static String getTextFromStream(InputStream inputStream){
 
         String versionName="";
