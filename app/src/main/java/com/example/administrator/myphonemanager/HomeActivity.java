@@ -1,5 +1,6 @@
 package com.example.administrator.myphonemanager;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.administrator.myphonemanager.Application.DataApplication;
 
 //注释 快给我注释 快快的
 public class HomeActivity extends ActionBarActivity {
@@ -48,9 +51,9 @@ public class HomeActivity extends ActionBarActivity {
 
         //第三部分  关键问题在于 自定义(组合)控件 九宫格的问题
         gv_home_item = (GridView) findViewById(R.id.gv_home_item);
-
+           //GridView BaseAdapter的重写 使自身View显示的自定义化
           gv_home_item.setAdapter(new nineAdapter());
-
+           //设定点击事件的相应响应事件
         gv_home_item.setOnItemClickListener(new nineItemListener());
 
 
@@ -91,6 +94,8 @@ public class HomeActivity extends ActionBarActivity {
 
 
         }
+
+
     }
 
 
@@ -120,15 +125,17 @@ public class HomeActivity extends ActionBarActivity {
 
             // GridView 优化  （资源浪费的和 滑动响应
             // 法1：复用convertView   法2：viewHolder
+                           //自定义控件的调用
             View view=View.inflate(HomeActivity.this,R.layout.item_gridview,null);
-
+                             //找到自定义控件的指定组件
           ImageView gridview_icon= (ImageView) view.findViewById(R.id.iv_home_gridview_icon);
           TextView gridview_title= (TextView) view.findViewById(R.id.tv_home_gridview_title);
 
-            //设置相对应的GridView中的View 中的内容
+            // 向相对应的自定义控件中的组件中填充 内容
             gridview_icon.setImageResource(iconarray[position]);
             gridview_title.setText(titles[position]);
 
+            //返回自定义控件的调用
             return view;
         }
     }
