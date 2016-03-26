@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp">
+
+    <!-- 自定义组合控件（还要添加自定义属性 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_setting_subhead"
+        android:textSize="20sp"
+        android:layout_margin="3dp"
+        />
+<!--
+    android:text="自动更新"   考虑到多个相同控件的不同的属性参数的填充 所以 使用自定义属性来设置
+-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_setting_subhead"
+        android:layout_margin="3dp"
+        android:id="@+id/tv_setting_subheadContent"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+
+        android:clickable="false"
+
+        android:id="@+id/cb_setting_isChecked"/>
+<!-- 靠右 父控件垂直居中 点击选择处理权的放弃 交于父控件RelativeLayout处理响应事件 android:focusable="false" -->
+
+</RelativeLayout>

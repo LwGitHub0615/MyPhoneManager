@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:SettingItem="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.myphonemanager.SettingActivity">
+
+    <!--  xmlns:SettingItem=对应设置的attrs 自定义的参数项 自定义属性  -->
+
+    <!--使用自定义的style-->
+<TextView
+    style="@style/PageTitleStyle"
+    android:text="设置中心"/>
+
+    <!--因Setting页面中 会有多项listItem 相类似的组合 所以 使用自定义组合控件来
+    item_settinglist 自定义组合控件的 式样-->
+   <!--
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自动更新"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_setting_text"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cb_setting_update"/>
+    </RelativeLayout>
+    -->
+
+    <!--利用自定义组合控件去设置 使用 -->
+<com.example.administrator.myphonemanager.View.SettingItem
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_setting_autoUpdate"
+    SettingItem:subhead="是否开启自动更新"
+    SettingItem:onContent="自动更新开启"
+    SettingItem:offContent="自动更新关闭"
+    SettingItem:spKey="autoUpdate">
+
+
+</com.example.administrator.myphonemanager.View.SettingItem>
+
+<!--因为还有些几个相同的功能模块（自定义控件 个别属性不同 （ 所以 自定义属性的使用-->
+    <com.example.administrator.myphonemanager.View.SettingItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_setting_belongTo"
+        SettingItem:subhead="是否开启归属地"
+        SettingItem:onContent="归属地开启"
+        SettingItem:offContent="归属地关闭"
+        SettingItem:spKey="belongTo"/>
+    <!--<com.example.administrator.myphonemanager.View.SettingItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_setting_" />-->
+    <!-- 未设置自定义属性的情况下 仍可以调用 且状态设置无误？ -->
+</LinearLayout>

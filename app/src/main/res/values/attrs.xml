@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 为自定义控件RelativeLayout的重写中添加的自定义属性的设置 -->
+<resources>
+    <declare-styleable name="SettingItem">
+<attr name="subhead" format="string"></attr>
+<attr name="onContent" format="string"/>
+<attr name="offContent" format="string"/>
+<attr name="spKey" format="string"/>
+    </declare-styleable>
+
+
+</resources>
