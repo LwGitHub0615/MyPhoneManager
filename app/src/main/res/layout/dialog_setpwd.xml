@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<!--手机防盗未开启的情况下 设置密码的Dialog 页面的自定义组合控件-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_margin="3dp"
+        android:text="设置密码" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:id="@+id/ed_dialogsetpwd_pwd1"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="再次确认密码"
+        android:inputType="numberPassword"
+        android:id="@+id/ed_dialogsetpwd_pwd2"/>
+<!--android:inputType="textPassword" 隐藏输入密码 numberPassword 设置效果 只能设置数字密码  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_dialogsetpwd_cancel"
+            android:text="取消"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_dialogsetpwd_confirm"
+            android:text="确认"/>
+    </LinearLayout>
+
+</LinearLayout>

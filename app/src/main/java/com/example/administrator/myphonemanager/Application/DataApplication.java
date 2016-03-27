@@ -13,6 +13,11 @@ public class DataApplication extends Application {
 
     //Day02的  开始共享数据  用做判断 自动更新的
     public static SharedPreferences configSP;
+
+    // Day03 定义成员的editor提交数据到SharedPreferences 文件化保存
+    static SharedPreferences.Editor editor;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,6 +27,18 @@ public class DataApplication extends Application {
 
         //configSP的初始化
         configSP= getSharedPreferences("config",MODE_PRIVATE);
+        //editor的初始化
+        editor =configSP.edit();
+    }
+
+    // Day03 创建 提交保存configSP的函数              （对应key value）
+    public static void setConfigSPvalue(String spKey,String spValue){
+
+         editor.putString(spKey,spValue);
+        editor.commit();
 
     }
+
+
+
 }

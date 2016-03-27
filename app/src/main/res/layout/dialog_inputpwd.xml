@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<!--开启手机防盗功能模块的时候 进入时需输入密码的时候的 Dialog 自定义组合控件 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="输入密码" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:id="@+id/ed_dialoginputpwd_pwd"/>
+<!--textPassword 隐藏显示输入密码 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_dialoginput_cancel"
+            android:onClick="dialoginput_Cancel"
+            android:text="取消"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_dialoginput_confirm"
+            android:onClick="dialoginput_Confirm"
+            android:text="确认"/>
+    </LinearLayout>
+
+</LinearLayout>

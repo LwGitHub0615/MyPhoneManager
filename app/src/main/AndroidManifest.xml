@@ -6,19 +6,29 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".Application.DataApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+
+        <!-- application的添加 -->
+        <!-- 设置SplashActivity的图标和应用名显示 区别 及多个启动页面的设置 -->
+        <activity
+            android:name=".SplashActivity"
+            android:icon="@drawable/toux"
+            android:label="Manager"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".PhoneSafeActivity"></activity>
     </application>
 
 </manifest>
